@@ -9,37 +9,37 @@ public class Main {
 
 		ReadSourceFile reader = new ReadSourceFile();
 		WriteInOutputFile writer = new WriteInOutputFile();
-		int fibonacciLength;
+		 // initialize Fibonacci object
+		Fibonacci fibonacciObj = new Fibonacci();
+		 // initialize an object for reversing the original strings
+		ReverseString reverseString = new ReverseString();
+         // limit Fibonacci Sequence to include 30 numbers on assumption
+         // that text file will include not more than 1 mln lines
+		int fibonacciLength = 30;
 		String sourceFileName = "source.txt";
 		String outputFileName = "output.txt";
 
-        // open input stream and get source file content into an array
 		try {
 		    reader.createInputStream(sourceFileName);
-		    reader.getRowsInArray();
+		    if(reader == null) throw new FileNotFoundException ("reader has not been created");
+            // generate a Fibonacci Sequence for specific N elements
+		    fibonacciObj.generateFibonacci(fibonacciLength);
+		    // get only the rows which match Fibonacci numbers and put them into an array
+            reader.getOnlyFibonacciMatches(fibonacciObj);
 		    reader.closeInputStream();
 		}
 		catch (Exception e) {
-            System.out.println("Specified file is not found. Try to provide correct file name instead of " + e.getMessage());
+            e.printStackTrace();
         }
 
-		            //System.out.println("Data from file is: \n" + reader.fileRowsKeeper);
-		// put length of the input file into a variable
-		fibonacciLength = reader.fileRowsKeeper.size();
-
-		// initialize Fibonacci object and generate a Fibonacci Sequence for specific N elements
-		Fibonacci fibonacciObj = new Fibonacci();
-		fibonacciObj.generateFibonacci(fibonacciLength);
-
-		// initialize an object for reversing the original strings
-		ReverseString reverseString = new ReverseString();
+		 System.out.println("\n--Fibonacci rows selected rows from source file are: \n" + reader.fileRowsKeeper);
 
         // open output stream, generate file content and write to the file
         try {
             writer.checkOutputFileReadiness(outputFileName);
             assert writer.fileCreated == true : "Output file hasn't been created.";
             writer.setOutputFilePrintStream();
-            writer.writeIntoFile(fibonacciObj, fibonacciLength, reverseString, reader);
+            writer.writeIntoFile(reverseString, reader);
             writer.closePrintStream();
         } catch (Exception e) {
             e.printStackTrace();

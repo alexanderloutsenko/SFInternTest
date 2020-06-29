@@ -14,15 +14,20 @@ public class ReadSourceFile {
         return fileScanner;
     }
 
-    /** this method extraxts lines from source file and returns them as an ArrayList  */
-    public ArrayList<String> getRowsInArray () {
+    /** this method extracts lines from source file and returns them as an ArrayList  */
+    public ArrayList<String> getOnlyFibonacciMatches (Fibonacci fibonacciObj) {
         fileRowsKeeper = new ArrayList<String>();//initialize ArrayList object
-        String line;
-        // below loop reads lines of text from the source file and put each row in ArrayList
-        while (fileScanner.hasNextLine()) {
-            line = fileScanner.nextLine();
-            fileRowsKeeper.add(line);
+        String lineFromFile;
+
+        // below loop reads lines of text from the source file and put in ArrayList
+        // only the rows which row number corresponds to a number included in Fibonacci Sequence
+        for (int i = 0; i < fibonacciObj.maxFibonacci && fileScanner.hasNextLine(); i++) {
+            lineFromFile = fileScanner.nextLine();
+		    if (fibonacciObj.isFibonacciNumber(i+1)) {
+                fileRowsKeeper.add(lineFromFile);
+		    }
         }
+        assert fileRowsKeeper != null : "fileRowsKeeper array has no elements inside";
         return fileRowsKeeper;
     }
 
