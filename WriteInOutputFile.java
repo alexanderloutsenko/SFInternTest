@@ -23,18 +23,15 @@ public class WriteInOutputFile  {
         outputPrintStream = new PrintStream(outputFileName);
     }
 
-    /** below method is implemented to check whether source file row's num corresponds to
-    // a num included in Fibonacci Sequence, reverse corresponding strings and put them into
-    // the output file  */
-    void writeIntoFile (Fibonacci fibObj, int fibonacciLength, ReverseString reverseString, ReadSourceFile reader) {
+    /** below method is implemented to reverse the strings selected from source file
+    // and put them into the output file  */
+    void writeIntoFile (ReverseString reverseString, ReadSourceFile reader) {
 
-        for (int i = 0; i < fibonacciLength; i++) {
-		  if (fibObj.isFibonacciNumber(i+1)) {
+        for (int i = 0; i < reader.fileRowsKeeper.size(); i++) {
 		    // get original string from ArrayList, convert it to string and send it for reversing
 		    reverseString.setString((reader.fileRowsKeeper.get(i)).toString());
 		    // write reversed string to the output file
             outputPrintStream.print((i==0) ? reverseString.getString() : ("\n" + reverseString.getString()));
-		  }
         }
     }
 
