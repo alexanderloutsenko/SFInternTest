@@ -1,1 +1,1 @@
-This is just an inner text of the GitHub test file.
+The content of the file is updated for Git testing.
